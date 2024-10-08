@@ -46,16 +46,36 @@ public class Cadeteria
     public string? Telefono { get => telefono; set => telefono = value; }
     public string? Nombre { get => nombre; set => nombre = value; }
 
+
     public void AgregarCadete(string id,string nombre, string direccion, string telefono)
     {
         Cadete cadete1 = new Cadete(id,nombre,direccion,telefono);
         ListaCadete.Add(cadete1);
     }
 
-    public void AgregarListaCadetes(List<Cadete> listaCadetes){
-        this.ListaCadete = listaCadetes;
+    public void CargarCadetes(string ruta)
+    {
+        AccesoDatos acceso;
+
+        if((ruta.Substring(ruta.Length - 4))== ".csv")
+        {
+            acceso = new AccesoCSV();
+        }else
+        {
+            acceso = new AccesoJSON();
+        }
+
+        ListaCadete = acceso.ObtenerCadetes(ruta);
     }
-public void AgregarPedido(Pedido ped)
+
+    public void AgregarListaCadetes(List<Cadete> listapedidos){
+        this.ListaCadete = listapedidos;
+    }
+
+    public void AgregarListaPedidos(List<Pedido> listapedidos){
+        this.listaPedidos = listapedidos;
+    }
+    public void AgregarPedido(Pedido ped)
     {
         if(ped != null)
         {
@@ -75,7 +95,7 @@ public void AgregarPedido(Pedido ped)
         {
 
         foreach (var p in from p in listaPedidos
-                          where p.NumPedido1 == id
+                          where p.NumPedido == id
                           select p)
         {
             p.Estados = Estado.Entregado;

@@ -1,20 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
 
+using MiAplicacion;
 
 [Route("[controller]")]
 [ApiController]
 public class CadeteriaController : ControllerBase
 {
-    private static Cadeteria? cadeteria;
+    private Cadeteria cadeteria;
+    private AccesoDatosCadeteria ADCadeteria;
+    private accesoDatosCadetes ADCadetes;
+    private accesoDatosPedidos ADPedidos;
+public CadeteriaController()
+{
+ADCadeteria= new AccesoDatosCadeteria();
+ADCadetes= new accesoDatosCadetes();
+ADPedidos= new accesoDatosPedidos();
+cadeteria= ADCadeteria.Obtener("datosCadeteria.csv");
+cadeteria.AgregarListaCadetes(ADCadetes.Obtener("datosCadetes.csv"));
+cadeteria.AgregarListaPedidos(ADPedidos.Obtener("datosPedidos.csv"));
+}
+    
 
-
-    public static Cadeteria? InstanciarCadeteria(string ruta)
+    [HttpGet("Cadeteria")]
+    public IActionResult GetCadeteria()
     {
-        if(cadeteria != null)
-        {
-            cadeteria = new Cadeteria(ruta);
-        }
-        return cadeteria;
+        return Ok(cadeteria.Nombre);
     }
 
     [HttpGet("pedidos")]
@@ -33,20 +43,23 @@ public class CadeteriaController : ControllerBase
     public ActionResult CrearPedido(int numeroPedido, string observacionPedido, string nombreCliente, string direccionCliente, string telefonoCliente, string datosReferenciaDireccionCliente)
     {
             cadeteria.AgregarPedido(numeroPedido, observacionPedido, nombreCliente, direccionCliente, telefonoCliente, datosReferenciaDireccionCliente);
-            return Ok();
+            ADPedidos.Guardar(cadeteria.listarPedido(),"datosPedidos.csv");
+            return Created();
     }
 
     [HttpPost("pedidosV2")]
     public ActionResult CrearPedido1([FromBody] Pedido pedido)
     {
             cadeteria.AgregarPedido(pedido);
-            return Created("Cadeteria/Pedido", pedido);
+            ADPedidos.Guardar(cadeteria.listarPedido(),"datosPedidos.csv");
+            return Created();
     }
 
     [HttpPut("CambiarEstado")]
     public ActionResult CambiarEstado(int idPedido)
     {
-        
-        return Ok(cadeteria.CambiarPedidoaEntregado(idPedido));
+        cadeteria.CambiarPedidoaEntregado(idPedido);
+        ADPedidos.Guardar(cadeteria.listarPedido(),"datosPedidos.csv");
+        return Ok();
     }
 }

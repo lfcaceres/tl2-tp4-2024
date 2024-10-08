@@ -433,11 +433,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/luisfernandocaceres/Taller2/Api/TodoApi/TodoApi.csproj",
+      "projectUniqueName": "/Users/luisfernandocaceres/Taller2/Api2/TodoApi/TodoApi.csproj",
       "projectName": "TodoApi",
-      "projectPath": "/Users/luisfernandocaceres/Taller2/Api/TodoApi/TodoApi.csproj",
+      "projectPath": "/Users/luisfernandocaceres/Taller2/Api2/TodoApi/TodoApi.csproj",
       "packagesPath": "/Users/luisfernandocaceres/.nuget/packages/",
-      "outputPath": "/Users/luisfernandocaceres/Taller2/Api/TodoApi/obj/",
+      "outputPath": "/Users/luisfernandocaceres/Taller2/Api2/TodoApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/luisfernandocaceres/.nuget/NuGet/NuGet.Config"

@@ -3,8 +3,8 @@ using System.Text.Json.Serialization;
 
 
 public abstract class AccesoDatos{
-    public abstract Cadeteria ObtenerCadeteria(string rutaDatosCadeteria);
-    public abstract List<Cadete> ObtenerCadetes(string rutaDatosCadetes);
+    public abstract Cadeteria ObtenerCadeteria(string ruta);
+    public abstract List<Cadete> ObtenerCadetes(string ruta);
 
     public bool ExisteArchivo(string ruta){
         FileInfo f = new FileInfo(ruta);

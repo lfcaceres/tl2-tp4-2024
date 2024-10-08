@@ -1,9 +1,13 @@
 public class Cliente
 {
-    private string Nombre;
-    private string Direccion;
-    private string Telefono;
-    private string DatosRefDir;
+    private string nombre;
+    private string direccion;
+    private string telefono;
+    private string datosRefDir;
+
+    public Cliente()
+    {
+    }
 
     public Cliente(string nomb, string dir, string tel, string dat)
     {
@@ -13,7 +17,8 @@ public class Cliente
         DatosRefDir=dat;
     }
 
-    public string? GetNombre{get => Nombre; }
-    public string? GetDireccion {get => Direccion;}
-    public string? GetTelefono {get => Telefono;}
+    public string Nombre { get => nombre; set => nombre = value; }
+    public string Direccion { get => direccion; set => direccion = value; }
+    public string Telefono { get => telefono; set => telefono = value; }
+    public string DatosRefDir { get => datosRefDir; set => datosRefDir = value; }
 }
